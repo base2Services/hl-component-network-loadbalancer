@@ -59,6 +59,8 @@ CloudFormation do
 
       if params.has_key?('type') and params['type'] == 'ip' and params.has_key? 'target_ips'
         Targets (params['target_ips'].map {|ip|  { 'Id' => ip['ip'], 'Port' => ip['port'], 'AvailabilityZone' => ip['az']? ip['az'] : nil }.compact})
+      elsif params.has_key?('type') and params['type'] == 'alb' and params.has_key? 'target_albs'
+        Targets (params['target_albs'].map {|alb|  { 'Id' => alb['arn'], 'Port' => alb['port'] }.compact})
       end
 
       if params.has_key?('attributes')
